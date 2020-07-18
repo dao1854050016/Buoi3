@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="jvscript.js"></script>
+        <script>
+
+            $(document).ready(function(){
+                $("#loadaId").click(() => {
+                    $.ajax({
+                        url:"https://5f04549a8b06d60016dde68f.mockapi.io/api/b3/:endpoint",
+                        type: "get"
+                    }).done((res) => {
+                        console.info(res);
+                        let d =document.getElementById("cateId");
+                        d.innerHTML = "";
+                        res.forEach(value =>{
+                            d.innerHTML += `<li>Id: ${value.id} - name: ${value.name}</li>`
+                        });
+                            
+                        }).fail((err) => {
+                            console.err(err);
+                        })
+                $("#addId").click(() =>{
+                    $.ajax({
+                        url: "https://5f04549a8b06d60016dde68f.mockapi.io/api/b3/:endpoint",
+                        type: "post",
+                        data: {
+                            name: $("#nameId").val()
+                        }
+                    }).done((res) => {
+                        alert("Successful");
+                    }).fail((err) => {
+                        alert("Failed");
+                    });
+                });    
+             });
+            })
+        </script>
+    </head>
+    <body>
+        <input type="button" id="loadId" value="Load Category" />
+        <div>
+            <input type="text" id="nameId" placeholder="CateName">
+            <input type="button" id="CateId" value="AddCategory">
+        </div>
+        <ul id="CateId"></ul>
+    </body>
+</html>
